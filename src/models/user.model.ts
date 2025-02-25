@@ -1,25 +1,29 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 // Model별로 interface만들어주기
+// Typescript에서는 Type에 소문자를 넣어주어야힘
+// 인터페이스 만들어주기
+// Mongoose + Interface Combination
 export interface IUser extends Document {
-  name: String;
-  username: String;
-  email: String;
-  password: String;
-  profilePicture: String;
-  bannerImg: String;
-  headline: String;
-  location: String;
-  about: String;
-  skills: [String];
-  experiences: [
-    { school: String; fieldStudy: String; startYear: Number; endYear: Number }
-  ];
-  connections:{
-    
-  }
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  profilePicture: string;
+  bannerImg: string;
+  headline: string;
+  location: string;
+  about: string;
+  skills: string[];
+  experiences: {
+    school: string;
+    fieldStudy: string;
+    startYear: number;
+    endYear: number;
+  }[];
+  connections: mongoose.Types.ObjectId[];
 }
-const userSchema = new mongoose.Schema(
+const userSchema: Schema = new mongoose.Schema<IUser>(
   {
     name: {
       type: String,
@@ -78,4 +82,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
