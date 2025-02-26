@@ -24,6 +24,13 @@ export interface IUser extends Document {
   connections: mongoose.Types.ObjectId[];
 }
 
+const ExperienceSchema = new Schema({
+  school: { type: String, required: true },
+  fieldStudy: { type: String, required: true },
+  startYear: { type: Number, required: true },
+  endYear: { type: Number, required: true },
+});
+
 const userSchema: Schema = new mongoose.Schema<IUser>(
   {
     name: {
@@ -65,14 +72,10 @@ const userSchema: Schema = new mongoose.Schema<IUser>(
       default: "",
     },
     skills: [String],
-    experiences: [
-      {
-        school: String,
-        fieldStudy: String,
-        startYear: Number,
-        endYear: Number,
-      },
-    ],
+    experiences: {
+      type: [ExperienceSchema],
+      default: [],
+    },
     connections: [
       {
         type: mongoose.Schema.Types.ObjectId,
