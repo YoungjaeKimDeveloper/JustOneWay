@@ -23,6 +23,7 @@ export interface IUser extends Document {
   }[];
   connections: mongoose.Types.ObjectId[];
 }
+
 const userSchema: Schema = new mongoose.Schema<IUser>(
   {
     name: {
@@ -83,3 +84,5 @@ const userSchema: Schema = new mongoose.Schema<IUser>(
 );
 
 const User = mongoose.model<IUser>("User", userSchema);
+
+export default User;
